@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Narrativ — Browse Books</title>
+<style>
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #222;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  nav {
+    background: #1e293b;
+    padding: 1rem 2rem;
+    display: flex; justify-content: center; gap: 2rem;
+  }
+  nav a {
+    color: #f1f5f9; font-weight: 600; font-size: 1.1rem; text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  nav a:hover { color: #3a86ff; }
+  main {
+    flex: 1;
+    max-width: 900px; margin: 3rem auto; padding: 0 1rem;
+  }
+  h1 {
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  /* Search Bar */
+  .search-container {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    display: flex;
+  }
+  .search-container input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 40px 0 0 40px;
+    border: 2px solid #3a86ff;
+    font-size: 1rem;
+    outline: none;
+  }
+  .search-container button {
+    background: #3a86ff;
+    border: none;
+    color: white;
+    padding: 0 1.5rem;
+    border-radius: 0 40px 40px 0;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .search-container button:hover {
+    background: #2565d9;
+  }
+  /* Books Grid */
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+    gap: 2rem;
+  }
+  .book-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .book-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  }
+  .book-cover {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+  }
+  .book-content {
+    padding: 1rem 1.2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .book-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0 0 0.2rem 0;
+    color: #1e293b;
+  }
+  .book-author {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 0.8rem;
+  }
+  .book-rating {
+    margin-top: auto;
+    color: #f59e0b; /* amber */
+    font-weight: 700;
+  }
+  /* No books message */
+  .no-books {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1.2rem;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="browse.html">Browse Books</a>
+  <a href="../about.html">About</a>
+  <a href="help.html">Help</a>
+  <a href="add.html">Add Book</a>
+</nav>
+
+<main role="main">
+  <h1>Browse Books</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by title or author..." aria-label="Search books by title or author" />
+    <button id="searchBtn" aria-label="Search books">Search</button>
+  </div>
+
+  <div class="books-grid" id="booksGrid">
+    <!-- Books will appear here -->
+  </div>
+
+  <p class="no-books" id="noBooksMsg" style="display:none;">No books found. Try adding some!</p>
+</main>
+
+<footer>
+  &copy; 2025 Narrativ. Made with ❤️ by [Your Name].
+</footer>
+
+<script>
+  // Get elements
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const booksGrid = document.getElementById('booksGrid');
+  const noBooksMsg = document.getElementById('noBooksMsg');
+
+  // Load books from localStorage or empty array
+  let books = JSON.parse(localStorage.getItem('narrativBooks')) || [];
+
+  // Render books function
+  function renderBooks(list) {
+    booksGrid.innerHTML = '';
+    if(list.length === 0) {
+      noBooksMsg.style.display = 'block';
+      return;
+    } else {
+      noBooksMsg.style.display = 'none';
+    }
+    list.forEach(book => {
+      const card = document.createElement('article');
+      card.className = 'book-card';
+
+      // Use a default cover if none provided
+      const cover = book.cover ? book.cover : 'https://via.placeholder.com/180x270?text=No+Cover';
+
+      card.innerHTML = `
+        <img class="book-cover" src="${cover}" alt="Cover of ${book.title}" />
+        <div class="book-content">
+          <h3 class="book-title">${book.title}</h3>
+          <p class="book-author">by ${book.author}</p>
+          <p class="book-rating">${'⭐'.repeat(book.rating)}</p>
+        </div>
+      `;
+      booksGrid.appendChild(card);
+    });
+  }
+
+  // Initial render all books
+  renderBooks(books);
+
+  // Search handler
+  function searchBooks() {
+    const query = searchInput.value.trim().toLowerCase();
+    if(!query) {
+      renderBooks(books);
+      return;
+    }
+    const filtered = books.filter(book =>
+      book.title.toLowerCase().includes(query) || book.author.toLowerCase().includes(query)
+    );
+    renderBooks(filtered);
+  }
+
+  // Event listeners
+  searchBtn.addEventListener('click', searchBooks);
+  searchInput.addEventListener('keyup', e => {
+    if(e.key === 'Enter') searchBooks();
+  });
+</script>
+
+</body>
+</html>
