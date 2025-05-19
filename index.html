@@ -1,24 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Narrativ — Home</title>
-  <style>
-    body { font-family: sans-serif; max-width: 700px; margin: 3rem auto; padding: 0 1rem; }
-    nav a { margin-right: 1rem; text-decoration: none; color: #2980b9; }
-    nav a:hover { text-decoration: underline; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Narrativ — Your Book Diary</title>
+<style>
+  /* Reset & basics */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #222;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a {
+    color: #3a86ff;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Navigation */
+  nav {
+    background: #1e293b;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  nav a {
+    color: #f1f5f9;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: #3a86ff;
+  }
+
+  /* Hero Section */
+  header.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  header.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.3rem;
+    color: #1e293b;
+  }
+  header.hero p.subtitle {
+    font-size: 1.25rem;
+    color: #475569;
+    margin-bottom: 2rem;
+    max-width: 550px;
+    line-height: 1.5;
+  }
+  header.hero a.cta-button {
+    background: #3a86ff;
+    color: white;
+    font-weight: 700;
+    padding: 1rem 2.5rem;
+    border-radius: 40px;
+    font-size: 1.2rem;
+    box-shadow: 0 6px 12px rgba(58, 134, 255, 0.5);
+    transition: background 0.3s ease;
+  }
+  header.hero a.cta-button:hover {
+    background: #2565d9;
+  }
+
+  /* Features Section */
+  section.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem 1rem 6rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .feature-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    flex: 1 1 250px;
+    max-width: 280px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  }
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #3a86ff;
+  }
+  .feature-title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+  }
+  .feature-desc {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+
+  /* Footer */
+  footer {
+    background: #1e293b;
+    color: #cbd5e1;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header.hero h1 {
+      font-size: 2.4rem;
+    }
+    section.features {
+      flex-direction: column;
+      padding-bottom: 4rem;
+    }
+    .feature-card {
+      max-width: 100%;
+    }
+  }
+</style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="pages/browse.html">Browse Books</a>
-    <a href="about.html">About</a>
-    <a href="pages/help.html">Help</a>
-  </nav>
 
-  <h1>Welcome to Narrativ</h1>
-  <p>Your personal book diary, like Letterboxd but for books.</p>
-  <p><a href="pages/browse.html">Start browsing books →</a></p>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="pages/browse.html">Browse Books</a>
+  <a href="about.html">About</a>
+  <a href="pages/help.html">Help</a>
+</nav>
+
+<header class="hero" role="banner">
+  <h1>Narrativ</h1>
+  <p class="subtitle">Your personal book diary — track, review, and share your reading journey with ease. Like Letterboxd, but for books.</p>
+  <a href="pages/browse.html" class="cta-button" role="button">Start Browsing Books</a>
+</header>
+
+<section class="features" aria-label="Features of Narrativ">
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">📚</div>
+    <h2 class="feature-title">Browse & Discover</h2>
+    <p class="feature-desc">Explore your growing library of books and find your next great read.</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">✍️</div>
+    <h2 class="feature-title">Write Reviews</h2>
+    <p class="feature-desc">Keep track of your thoughts and share reviews with your friends.</p>
+  </article>
+  <article class="feature-card">
+    <div class="feature-icon" aria-hidden="true">🔖</div>
+    <h2 class="feature-title">Organize Easily</h2>
+    <p class="feature-desc">Categorize your books and keep your reading life beautifully organized.</p>
+  </article>
+</section>
+
+<footer>
+  &copy; 2025 Narrativ. Made By Ken Aldirn.
+</footer>
+
 </body>
 </html>
