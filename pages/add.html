@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Narrativ — Add Book</title>
+<style>
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    color: #222;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  nav {
+    background: #1e293b;
+    padding: 1rem 2rem;
+    display: flex; justify-content: center; gap: 2rem;
+  }
+  nav a {
+    color: #f1f5f9; font-weight: 600; font-size: 1.1rem; text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  nav a:hover { color: #3a86ff; }
+  main {
+    max-width: 700px; margin: 3rem auto; padding: 0 1rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  }
+  h1 {
+    color: #1e293b; margin: 2rem 0 1rem 0; text-align: center;
+  }
+  form {
+    padding: 2rem;
+  }
+  input, textarea, select, button {
+    display: block;
+    width: 100%;
+    margin-bottom: 1.2rem;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1.8px solid #ccc;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: #3a86ff;
+    outline: none;
+  }
+  button {
+    background: #3a86ff;
+    border: none;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 1rem 0;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    box-shadow: 0 6px 15px rgba(58, 134, 255, 0.5);
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #2565d9;
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="../index.html">Home</a>
+  <a href="browse.html">Browse Books</a>
+  <a href="../about.html">About</a>
+  <a href="help.html">Help</a>
+  <a href="add.html">Add Book</a>
+</nav>
+<main role="main">
+  <h1>Add a New Book</h1>
+  <form id="addBookForm" novalidate>
+    <input type="text" id="title" placeholder="Book Title *" required aria-required="true" aria-label="Book Title" />
+    <input type="text" id="author" placeholder="Author *" required aria-required="true" aria-label="Author" />
+    <input type="url" id="cover" placeholder="Cover Image URL (optional)" aria-label="Cover Image URL" />
+    <select id="rating" required aria-required="true" aria-label="Rating">
+      <option value="" disabled
